@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Login Act</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">FEED</string>
+    <string name="notifications">NOTIFICATIONS</string>
+    <string name="profile">PROFILE</string>
+    <string name="home_page">Feed Section</string>
+    <string name="favourite_profile">MY PROFILE</string>
+    <string name="asks_and_haves">Asks and haves</string>
+    <string name="discussion">DISCUSSION</string>
+    <string name="business_category">Business Category : </string>
+    <string name="banglore">BANGLORE</string>
+
+
+    <string name="agenda">AGENDA</string>
+    <string name="create_an_event">CREATE AN EVENT</string>
+    <string name="date">DATE</string>
+    <string name="time">TIME</string>
+    <string name="haves">HAVES</string>
+    <string name="needs">NEEDS</string>
+    <string name="create_link">CREATE LINK</string>
+    <string name="create_event">CREATE EVENT</string>
+
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="club_rules">club rules</string>
+    <string name="mute">Mute</string>
+    <string name="clear_chat">Clear Chat</string>
+    <string name="leave_group">Leave Group</string>
+    <string name="share_group">Share Group</string>
+    <string name="add_shortcut">Add Shortcut</string>
+    <string name="listofclubs">LIST OF CLUBS</string>
+    <string name="webinar">WEBINAR</string>
+    <string name="feed">FEED</string>
+    <string name="club1">CLUB1</string>
+    <string name="clubs">CLUBS</string>
+    <string name="events">EVENTS</string>
+    <string name="create_group">CREATE GROUP</string>
+    <string name="join_group">JOIN GROUP</string>
+    <string name="objectives">OBJECTIVES</string>
+    <string name="club_name">CLUB NAME</string>
+    <string name="president">PRESIDENT</string>
+    <string name="secretary">SECRETARY</string>
+    <string name="create_club">CREATE CLUB</string>
+    <string name="go_to">GO TO</string>
+    <string-array name="president_choices">
+        <item>(choose president)</item>
+        <item>President1</item>
+        <item>President2</item>
+        <item>President3</item>
+        <item>President4</item>
+        <item>President5</item>
+    </string-array>
+    <string-array name="secretary_choices">
+        <item>(choose secretary)</item>
+        <item>Secretary1</item>
+        <item>Secretary2</item>
+        <item>Secretary3</item>
+        <item>Secretary4</item>
+        <item>Secretary5</item>
+    </string-array>
+
+
+    <string-array name="city_choices">
+        <item>(choose city)</item>
+        <item>Tumkur</item>
+        <item>Bangalore</item>
+        <item>Bellari</item>
+        <item>Mangalore</item>
+    </string-array>
+    <string-array name="state_choices">
+        <item>(choose state)</item>
+        <item>Karnataka</item>
+    </string-array>
+</resources>

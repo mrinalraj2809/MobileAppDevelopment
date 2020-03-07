@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/db" android:title="dashboard" android:icon="@drawable/ic_dashboard_black_24dp"/>
+    <item android:id="@+id/calender" android:title="calender" android:icon="@drawable/ic_perm_contact_calendar_black_24dp"/>
+    <item android:id="@+id/event" android:title="event" android:icon="@drawable/ic_event_black_24dp"/>
+    <item android:id="@+id/settings" android:title="settings" android:icon="@drawable/ic_settings_black_24dp"/>
+    <item android:id="@+id/Rules" android:title="@string/club_rules" android:icon="@drawable/ic_assignment_black_24dp"/>
+    <item android:id="@+id/logout" android:title="logout" android:icon="@drawable/ic_redo_black_24dp"/>
+</menu>

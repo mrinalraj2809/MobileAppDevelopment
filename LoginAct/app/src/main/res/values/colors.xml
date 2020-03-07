@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="startblue">#09c6df</color>
+    <color name="white">#ffffff</color>
+    <color name="darkgrey">#6c6c6c</color>
+    <color name="grey">#fafafa</color>
+    <color name="tabtextcolor">#FF9800</color>
+    <color name="tabindicator">#E4FF6822</color>
+    <color name="orange">#F15C2F</color>
+    <color name="black">#1A1919</color>
+    <color name="lightgrey">#CCC2C2</color>
+    <color name="blue_grad">#3B3E52</color>
+    <color name="tabIndicatorColor">#DA1C0D</color>
+    <color name="tabTextColor">#1A0B11</color>
+</resources>

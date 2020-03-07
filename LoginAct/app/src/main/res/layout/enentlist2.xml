@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="8dp">
+
+        <RelativeLayout
+            android:id="@+id/AgendaAndNeeds"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textAgenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agenda : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textNeeds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textAgenda"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="Needs : "
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textHaves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textNeeds"
+                android:layout_marginBottom="6dp"
+                android:text="Haves :" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textHaves"
+                android:layout_marginBottom="16dp"
+                android:text="Date" />
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textHaves"
+                android:layout_marginLeft="224dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="16dp"
+                android:layout_toRightOf="@+id/textViewDate"
+                android:text="Time" />
+
+            <Button
+                android:id="@+id/buttonReminder"
+                android:layout_width="175dp"
+                android:layout_height="58dp"
+                android:layout_below="@+id/textViewDate"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
+                android:text="Set Remainder" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

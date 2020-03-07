@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/Snackbar"
+    android:background="@color/blue_grad"
+    tools:context=".SignUp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_Name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="Name"
+            app:met_baseColor="#ffffff"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Name"
+            app:met_floatingLabelTextColor="@color/white"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_email"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:met_baseColor="#ffffff"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Email"
+            app:met_floatingLabelTextColor="@color/white"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_PhoneNumber"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            app:met_baseColor="#ffffff"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Phone Number"
+            app:met_floatingLabelTextColor="@color/white"
+            />
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_Password"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:met_baseColor="#ffffff"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Password"
+            app:met_floatingLabelTextColor="@color/white"
+            />
+
+
+        <Button
+            android:id="@+id/button_signUp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/mybutton"
+            android:text="Sign Up"
+
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/AlreadyAccountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already a member? Login Here"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+           />
+
+    </LinearLayout>
+</LinearLayout>
