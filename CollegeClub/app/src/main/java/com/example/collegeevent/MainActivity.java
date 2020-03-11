@@ -21,39 +21,39 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView mRecyclerViewCollege, mRecyclerViewGroup;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference mRefCollege, mRefGroup;
+    RecyclerView                mRecyclerViewCollege;
+    RecyclerView                mRecyclerViewGroup;
+    FirebaseDatabase            firebaseDatabase;
+    DatabaseReference           mRefCollege;
+    DatabaseReference           mRefGroup;
 
-    ArrayList<Event_Model> event_List_college;
-    ArrayList<Event_Model> event_List_group;
+    ArrayList<Event_Model>      event_List_college;
+    ArrayList<Event_Model>      event_List_group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerViewCollege = findViewById(R.id.recycler_college_event);
-        mRecyclerViewGroup = findViewById(R.id.recycler_group_event);
-        //mRecyclerViewCollege.setLayoutManager(new LinearLayoutManager(this));
-        //mRecyclerViewGroup.setLayoutManager(new LinearLayoutManager(this));
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        mRefCollege = firebaseDatabase.getReference("collegeEvent");
-        mRefGroup = firebaseDatabase.getReference("groupEvent");
-        //college events
-        collegeContentRecycler();
-        //group events
-        groupContentRecycler();
+        mRecyclerViewCollege   = findViewById(R.id.recycler_college_event);
+        mRecyclerViewGroup     = findViewById(R.id.recycler_group_event);
+                                        //mRecyclerViewCollege.setLayoutManager(new LinearLayoutManager(this));
+                                        //mRecyclerViewGroup.setLayoutManager(new LinearLayoutManager(this));
+        firebaseDatabase       = FirebaseDatabase.getInstance();
+        mRefCollege            = firebaseDatabase.getReference("collegeEvent");
+        mRefGroup              = firebaseDatabase.getReference("groupEvent");
+
+        collegeContentRecycler();       //college events
+        groupContentRecycler();         //group events
     }
     public void collegeContentRecycler() {
-        //eeshan's code
+                                        //eeshan's code
         mRecyclerViewCollege.clearOnScrollListeners();
         mRecyclerViewCollege.clearOnChildAttachStateChangeListeners();
-        // list.clear();
+                                        // list.clear();
         event_List_college=new ArrayList<Event_Model>();
 
         mRefCollege.addValueEventListener(new ValueEventListener() {
-            Event_Model event_model=new Event_Model();
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     value=x.getValue(Event_Model.class);
                     event_List_college.add(value);
-                    // Toast.makeText(Main2Activity.this, "item: "+list.get(i).title, Toast.LENGTH_LONG).show();
-
+                                        // Toast.makeText(Main2Activity.this, "item: "+list.get(i).title, Toast.LENGTH_LONG).show();
                 }
                 mRecyclerViewCollege.clearOnScrollListeners();
                 mRecyclerViewCollege.clearOnChildAttachStateChangeListeners();
@@ -102,16 +101,16 @@ public class MainActivity extends AppCompatActivity {
                     {
                         group_value=x.getValue(Event_Model.class);
                         event_List_group.add(group_value);
-                        // Toast.makeText(Main2Activity.this, "item: "+list.get(i).title, Toast.LENGTH_LONG).show();
+                                            // Toast.makeText(Main2Activity.this, "item: "+list.get(i).title, Toast.LENGTH_LONG).show();
 
                     }
-                    // to clears all listener in recycler view
+                                            // to clears all listener in recycler view
                     mRecyclerViewGroup.clearOnScrollListeners();
                     mRecyclerViewGroup.clearOnChildAttachStateChangeListeners();
 
-                    //my adapter is local to group content creater fn
+                                            //my adapter is local to group content creater fn
                     MyAdapter myAdapter= new MyAdapter(event_List_group);
-                    // ask the use of grid layout manageer here
+                                            // ask the use of grid layout manageer here
                     RecyclerView.LayoutManager recyce=new GridLayoutManager(mRecyclerViewCollege.getContext(),1);
                     mRecyclerViewGroup.setLayoutManager(recyce);
                     mRecyclerViewGroup.setItemAnimator(new DefaultItemAnimator());

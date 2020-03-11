@@ -1,24 +1,24 @@
 package com.example.collegeevent;
 
 public class Event_Model {
-    String title;
-    String eventDate;
-    String eventTime;
-    String venue;
-    String reminderSet;
-    String description;
+    private String           title;
+    private String           eventDate;
+    private String           eventTime;
+    private String           venue;
+    private String           reminderSet;
+    private String           description;
 
 
     public Event_Model() {
     }
 
     public Event_Model(String title, String eventDate, String eventTime, String venue, String reminderSet, String description) {
-        this.title = title;
-        this.eventDate = eventDate;
-        this.eventTime = eventTime;
-        this.venue = venue;
-        this.reminderSet = reminderSet;
-        this.description = description;
+        this.title          = title;
+        this.eventDate      = eventDate;
+        this.eventTime      = eventTime;
+        this.venue          = venue;
+        this.reminderSet    = reminderSet;
+        this.description    = description;
     }
     public void setDescription(String description) {
         this.description = description;
@@ -27,6 +27,7 @@ public class Event_Model {
     public String getDescription() {
         return description;
     }
+
     public String getTitle() {
         return title;
     }

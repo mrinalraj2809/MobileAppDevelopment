@@ -20,9 +20,9 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
             android:layout_weight="1"
             android:elevation="2dp"
             android:shadowColor="@color/dark"
@@ -39,7 +39,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_college_event"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -56,9 +56,9 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
             android:layout_weight="1"
             android:elevation="2dp"
             android:shadowColor="@color/dark"
@@ -74,7 +74,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_group_event"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear_group_layout" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

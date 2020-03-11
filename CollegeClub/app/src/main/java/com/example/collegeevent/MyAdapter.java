@@ -18,29 +18,32 @@ import java.util.List;
 
 /**********************************Adapter Class***********************************/
 public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private List<Event_Model> userList;
-    LinearLayout linearLayout;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("collegeEvent");
-
+    private List<Event_Model>       userList;
+    LinearLayout                    linearLayout;
+    DatabaseReference               databaseReference = FirebaseDatabase.getInstance().getReference("collegeEvent");
+    int                             flag              = 1;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         //public TextView title, desc;
         //public String title, String eventDate, String eventTime, String venue, String reminderSet, String desciption
-        public TextView eventTitle, eventDate, eventTime, venue,t_description,description;
-        public Button reminderSet;
+        public TextView             eventTitle;
+        public TextView             eventDate;
+        public TextView             eventTime;
+        public TextView             venue;
+        public TextView             t_description;
+        public TextView             description;
+        public Button               reminderSet;
 
         public MyViewHolder(View view) {
             super(view);
-            eventTitle = (TextView) view.findViewById(R.id.t_title);
-            eventDate = view.findViewById(R.id.t_date);
-            eventTime = view.findViewById(R.id.t_time);
-            venue = view.findViewById(R.id.t_venue);
-            reminderSet = view.findViewById(R.id.b_reminder);
-            t_description = view.findViewById(R.id.t_description);
-            description = view.findViewById(R.id.description);
+            eventTitle              = view.findViewById(R.id.t_title);
+            eventDate               = view.findViewById(R.id.t_date);
+            eventTime               = view.findViewById(R.id.t_time);
+            venue                   = view.findViewById(R.id.t_venue);
+            reminderSet             = view.findViewById(R.id.b_reminder);
+            t_description           = view.findViewById(R.id.t_description);
+            description             = view.findViewById(R.id.description);
 
-            linearLayout = view.findViewById(R.id.id);
-
-
+            linearLayout            = view.findViewById(R.id.id);
         }
     }
 
@@ -75,8 +78,19 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(v.getContext(), "Opening! Please wait.....", Toast.LENGTH_LONG).show();
-                holder.t_description.setVisibility(View.VISIBLE);
-                holder.description.setVisibility(View.VISIBLE);
+                if(flag == 1)
+                {
+                    flag = 0;
+                    holder.t_description.setVisibility(View.VISIBLE);
+                    holder.description.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    flag = 1;
+                    holder.t_description.setVisibility(View.GONE);
+                    holder.description.setVisibility(View.GONE);
+
+                }
                 //Intent i = new Intent(v.getContext(), MainActivity.class);
                 //i.putExtra("position", "" + (position + 1));
                 //v.getContext().startActivity(i);
