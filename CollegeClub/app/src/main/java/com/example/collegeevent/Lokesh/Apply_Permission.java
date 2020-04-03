@@ -20,12 +20,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.collegeevent.Permission;
 import com.example.collegeevent.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,30 +37,74 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class Apply_Permission extends AppCompatActivity {
-    EditText txtgrpnm,txtgrpdesc,txtgrptype,txtpersonname;
-    TextView txtfilename;
-    Button btnupload,btnapply;
-    ProgressDialog progressDialog;
-    Uri pdfUri;
-    int maxid=0;
-    com.example.collegeevent.Permission permission;
-    FirebaseStorage firebaseStorage;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference dbref;
+    EditText                txtgrpnm,txtgrpdesc,txtgrptype,txtpersonname;
+    TextView                txtfilename;
+    Button                  btnupload,btnapply;
+    ProgressDialog          progressDialog;
+    Uri                     pdfUri;
+    //int                   maxid=0;
+    Permission              permission;
+    FirebaseStorage         firebaseStorage;
+    FirebaseDatabase        firebaseDatabase;
+    DatabaseReference       dbref;
+    String                  teacherName, adminName;
+    String                  userType;
+    String                  userID;
+    FirebaseAuth            mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply__permission);
-        txtgrpdesc= findViewById(R.id.groupdesc);
-        txtpersonname= findViewById(R.id.personname);
-        txtfilename= findViewById(R.id.permissiontext);
-        txtgrpnm= findViewById(R.id.groupname);
-        txtgrptype= findViewById(R.id.typeOfgroup);
-        btnapply= findViewById(R.id.apply);
-        btnupload= findViewById(R.id.uploadpdf);
-        permission= new Permission();
-        firebaseStorage = FirebaseStorage.getInstance();
-        firebaseDatabase= FirebaseDatabase.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        txtgrpdesc              = findViewById(R.id.groupdesc);
+        txtpersonname           = findViewById(R.id.personname);
+        txtfilename             = findViewById(R.id.permissiontext);
+        txtgrpnm                = findViewById(R.id.groupname);
+        txtgrptype              = findViewById(R.id.typeOfgroup);
+        btnapply                = findViewById(R.id.apply);
+        btnupload               = findViewById(R.id.uploadpdf);
+        permission              = new Permission();
+        firebaseStorage         = FirebaseStorage.getInstance();
+        firebaseDatabase        = FirebaseDatabase.getInstance();
+
+        // get login type from the intent
+        Intent intent = getIntent();
+        userType                    = intent.getStringExtra("USER_TYPE");
+        userID                      = intent.getStringExtra("USER_ID");
+        if (userType.equals("LoginTeacher")) {
+            //teacherName = intent.getStringExtra("TEACHER_NAME");
+            //txtpersonname.setText(String.valueOf(FirebaseDatabase.getInstance().getReference().child("LoginTeacher").child(mAuth.getUid()).child("teacher_name")));
+            FirebaseDatabase.getInstance().getReference().child("LoginTeacher").child(mAuth.getUid()).child("teacher_name").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    teacherName     = dataSnapshot.getValue(String.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            txtpersonname.setText(teacherName);
+        }
+        else {
+            //adminName = intent.getStringExtra("ADMIN_NAME");
+            FirebaseDatabase.getInstance().getReference().child("LoginAdmin").child(mAuth.getUid()).child("admin_name").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    adminName       = dataSnapshot.getValue(String.class);    // We have to specify the class, similar to messageModel and it has to be same as firebase value.
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            txtpersonname.setText(adminName);
+        }
+
         btnupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +137,10 @@ public class Apply_Permission extends AppCompatActivity {
     }
 
     private void save_details() {
-        dbref= FirebaseDatabase.getInstance().getReference().child("Admin");
+        if (userType.equals("LoginTeacher"))
+            dbref               = FirebaseDatabase.getInstance().getReference().child("RequestChannelCreationTeacherLogin");
+        else
+            dbref               = FirebaseDatabase.getInstance().getReference().child("RequestChannelCreationAdminLogin");
 
     }
 
@@ -103,70 +150,58 @@ public class Apply_Permission extends AppCompatActivity {
         progressDialog.setTitle("Uploading file...");
         progressDialog.setProgress(0);
         progressDialog.show();
-        final String name= System.currentTimeMillis()+"";
+        final String fileName= System.currentTimeMillis()+"";
         StorageReference storageReference= firebaseStorage.getReference();
-        storageReference.child("UploadedPDF").child(name).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageReference.child("UploadedPDF").child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                final String url= taskSnapshot.getStorage().getDownloadUrl().toString();
-                final String groupname=txtgrpnm.getText().toString();
-                final String person= txtpersonname.getText().toString();
-                final String groupdesc= txtgrpdesc.getText().toString();
-                final String grouptype= txtgrptype.getText().toString();
-                final DatabaseReference reference= firebaseDatabase.getReference();
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists())
-                        {
-                            maxid=(int) dataSnapshot.getChildrenCount();
-                        }
-                    }
+                final String url                    = taskSnapshot.getStorage().getDownloadUrl().toString();
+                final String groupname              = txtgrpnm.getText().toString();
+                final String person                 = txtpersonname.getText().toString();
+                final String groupdesc              = txtgrpdesc.getText().toString();
+                final String grouptype              = txtgrptype.getText().toString();
+                final DatabaseReference reference   = dbref;          // dbref is either requestTeacher or requestAdminLogin
+                permission.setName(person);
+                permission.setGroup(groupname);
+                permission.setDesc(groupdesc);
+                permission.setType(grouptype);
+                permission.setPdf(url);
+                permission.setUserID(mAuth.getUid());               // UserId can be used to fetch the account of the teacher or admin
+                reference.child(String.valueOf(System.currentTimeMillis())).setValue(permission);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Apply_Permission.this, "File Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                txtgrpnm.setText("");
+                txtfilename.setText("");
+                txtgrpdesc.setText("");
+                txtgrptype.setText("");
 
-                    }
-                });
-
-                reference.child("Admin").child("admin"+String.valueOf(maxid+1)).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
-                            permission.setName(person);
-                            permission.setGroup(groupname);
-                            permission.setDesc(groupdesc);
-                            permission.setType(grouptype);
-                            permission.setPdf(url);
-                            reference.child("Admin").child("admin"+String.valueOf(maxid)).setValue(permission);
-
-                            Toast.makeText(Apply_Permission.this, "File Successfully Uploaded", Toast.LENGTH_SHORT).show();
-                            txtgrpnm.setText("");
-                            txtfilename.setText("");
-                            txtgrpdesc.setText("");
-                            txtgrptype.setText("");
-                        }
-                        else
-                        {
-                            Toast.makeText(Apply_Permission.this, "File not uploaded", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-
+//                reference.child(String.valueOf(System.currentTimeMillis())).child("admin"+String.valueOf(maxid+1)).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful())
+//                        {
+//                                                    }
+//                        else
+//                        {
+//
+//                        }
+//
+//                    }
+//                });
+//
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                int currentProgress=   (int)(100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                progressDialog.setProgress(currentProgress);
-            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(Apply_Permission.this, "File not uploaded", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                int currentProgress=   (int)(100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+//                progressDialog.setProgress(currentProgress);
+//            }
         });
     }
 
@@ -187,7 +222,7 @@ public class Apply_Permission extends AppCompatActivity {
     }
 
     private void selectPdf() {
-        Intent i= new Intent();
+        Intent i                        = new Intent();
         i.setType("application/pdf");
         i.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(i,86);
@@ -199,7 +234,7 @@ public class Apply_Permission extends AppCompatActivity {
 
         if(requestCode==86 && resultCode== RESULT_OK && data!=null)
         {
-            pdfUri= data.getData();
+            pdfUri                      = data.getData();
             txtfilename.setText(""+data.getData().getLastPathSegment());
             Toast.makeText(this, "File Selected Successfully", Toast.LENGTH_SHORT).show();
         }

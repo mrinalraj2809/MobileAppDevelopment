@@ -8,10 +8,12 @@ public class MemberStudent {
     private String student_email;
     private String student_password;
     private String student_user_Id;
+    private String user_type;
 
     public MemberStudent() {
     }
-    public MemberStudent(String student_name, String student_USN, String student_phone_number, String student_semester, String student_branch, String student_email, String student_password, String student_user_Id) {
+
+    public MemberStudent(String student_name, String student_USN, String student_phone_number, String student_semester, String student_branch, String student_email, String student_password, String student_user_Id, String user_type) {
         this.student_name = student_name;
         this.student_USN = student_USN;
         this.student_phone_number = student_phone_number;
@@ -20,6 +22,7 @@ public class MemberStudent {
         this.student_email = student_email;
         this.student_password = student_password;
         this.student_user_Id = student_user_Id;
+        this.user_type = user_type;
     }
 
     public String getStudent_name() {
@@ -84,5 +87,13 @@ public class MemberStudent {
 
     public void setStudent_user_Id(String student_user_Id) {
         this.student_user_Id = student_user_Id;
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 }
