@@ -2,18 +2,18 @@ package com.example.collegeevent.Lokesh;
 public class Permission {
     private String name, group, desc, type, pdf;
     private String userID;
-    private String channelAppproved;
+    private String channelApproved;
     public Permission() {
     }
 
-    public Permission(String name, String group, String desc, String type, String pdf, String userID, String channelAppproved) {
+    public Permission(String name, String group, String desc, String type, String pdf, String userID, String channelApproved) {
         this.name = name;
         this.group = group;
         this.desc = desc;
         this.type = type;
         this.pdf = pdf;
         this.userID = userID;
-        this.channelAppproved = channelAppproved;
+        this.channelApproved = channelApproved;
     }
 
     public String getName() {
@@ -64,12 +64,12 @@ public class Permission {
         this.userID = userID;
     }
 
-    public String getChannelAppproved() {
-        return channelAppproved;
+    public String getChannelApproved() {
+        return channelApproved;
     }
 
-    public void setChannelAppproved(String channelAppproved) {
-        this.channelAppproved = channelAppproved;
+    public void setChannelApproved(String channelApproved) {
+        this.channelApproved = channelApproved;
     }
 
 

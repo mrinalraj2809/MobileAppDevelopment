@@ -44,6 +44,8 @@ public class Apply_Permission extends AppCompatActivity {
     Uri                     pdfUri;
     //int                   maxid=0;
     Permission              permission;
+    MemberTeacher           memberTeacher;
+    //MemberAdmin           memberAdmin;
     FirebaseStorage         firebaseStorage;
     FirebaseDatabase        firebaseDatabase;
     DatabaseReference       dbref;
@@ -51,6 +53,15 @@ public class Apply_Permission extends AppCompatActivity {
     String                  userType;
     String                  userID;
     FirebaseAuth            mAuth;
+    public Apply_Permission()
+    {
+        SignUP signUP = new SignUP();
+        memberTeacher = signUP.memberTeacher;
+    }
+//    Apply_Permission(MemberAdmin memberAdmin)
+//    {
+//        this.memberAdmin = memberAdmin;
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +95,7 @@ public class Apply_Permission extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    Toast.makeText(Apply_Permission.this, "Name failed to fetch", Toast.LENGTH_SHORT).show();
                 }
             });
             txtpersonname.setText(teacherName);
@@ -166,8 +177,14 @@ public class Apply_Permission extends AppCompatActivity {
                 permission.setDesc(groupdesc);
                 permission.setType(grouptype);
                 permission.setPdf(url);
+                permission.setChannelApproved("0");
                 permission.setUserID(mAuth.getUid());               // UserId can be used to fetch the account of the teacher or admin
-                reference.child(String.valueOf(System.currentTimeMillis())).setValue(permission);
+                String timeInMillis = String.valueOf(System.currentTimeMillis());
+                reference.child(timeInMillis).setValue(memberTeacher);
+                if (userType.equalsIgnoreCase("LoginTeacher"))
+                {
+                    //reference.child(timeInMillis).setValue(memberTeacher);
+                }
 
                 Toast.makeText(Apply_Permission.this, "File Successfully Uploaded", Toast.LENGTH_SHORT).show();
                 txtgrpnm.setText("");
@@ -231,7 +248,7 @@ public class Apply_Permission extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==86 && resultCode== RESULT_OK && data!=null)
         {
             pdfUri                      = data.getData();

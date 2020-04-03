@@ -12,11 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Lokesh.MainActivityLokesh">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Lokesh.BottomNavigation" />
         <activity android:name=".Lokesh.BackFragment" />
@@ -24,7 +20,11 @@
         <activity android:name=".Lokesh.Apply_Permission" />
         <activity android:name=".Lokesh.SignUP"/>
         <activity android:name=".ChannelGroup">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
     </application>

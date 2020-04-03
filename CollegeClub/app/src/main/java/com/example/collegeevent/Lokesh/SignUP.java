@@ -236,6 +236,7 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
                                                     memberTeacher.setTeacher_password("1"+pwdTeacher+"1");
                                                     memberTeacher.setTeacher_user_Id(mAuth.getUid());
                                                     memberTeacher.setTeacher_verified("0");
+                                                    //Apply_Permission apply_permission = new Apply_Permission(memberTeacher);apply_permission.memberTeacher=memberTeacher;
                                                     dbref.child("LoginTeacher").child(mAuth.getUid()).setValue(memberTeacher);
                                                     Toast.makeText(SignUP.this, "Registered Successfully!!!\nComplete the Permission Letter", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(getApplicationContext(), Apply_Permission.class);
