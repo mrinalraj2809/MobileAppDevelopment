@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/incoming_linear_layout"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
     android:layout_marginTop="6dp"
@@ -20,7 +20,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/incoming_cardView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="98dp"
         android:alpha="1"
@@ -79,7 +79,7 @@
                 android:paddingBottom="10dp"
                 android:text="hi\nHow are you"
                 android:textColor="@color/colorBlack"
-                android:textSize="13.5sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_max="wrap"

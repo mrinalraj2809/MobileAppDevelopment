@@ -1,8 +1,11 @@
 package com.example.collegeevent.Lokesh;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
@@ -17,10 +20,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    TextInputEditText               txtnmStudent,txtusnStudent,txtpnoStudent,txtsemStudent,txtdepStudent,txtemailStudent,txtpwdStudent,txtcnfpwdStudent;
+    TextInputEditText               txtnmStudent,txtusnStudent,txtpnoStudent,txtemailStudent,txtpwdStudent,txtcnfpwdStudent;
     TextInputEditText               signinnameTeacher,signinUniqueIdTeacher,signinpnoTeacher,signInSpecialisationTeacher,signinbranchTeacher,signinDesignationTeacher,signinemailTeacher,signinpwdTeacher,signinpwdcnfrmTeacher;
+
+    ProgressDialog                  loadingBar;
+    AutoCompleteTextView            acTxtsemStudent,acTxtdepStudent,acTxtSectionStudent;
     Button                          requestPermissionTeacher;
     Button                          requestPermissionAdmin;
     Button                          btnRegisterStudent;
@@ -32,8 +43,18 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
     DatabaseReference               dbref;
     //long maxid=111;
     Spinner spinnerUserType;
+
+    ImageButton                     mProfileImage;
+    private static final int        GallaryPick = 1;
+    StorageReference                mUserProfileRef;
+    String                          downloadUrl;
+
     MemberStudent                   memberStudent;
     MemberTeacher                   memberTeacher;
+
+    String                          departmentArr[] = {"CSE","ISE","MECH","ECE","EEE","TLE","BIO","CHEM","ARCHI"};
+    String                          sectionArr[] = {"A","B","C","D","E","F","G","H","I","J"};
+    String                          semesterArr[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
 //    MemberAdmin memberAdmin;
 //    MemberSuperAdmin superAdmin
     @Override
@@ -41,16 +62,31 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        loadingBar                  = new ProgressDialog(this);
         spinnerUserType             = findViewById(R.id.spinnerUserType);
         stubStudent                 = (ViewStub) findViewById(R.id.layout_stub_student);
         stubTeacher                 = (ViewStub) findViewById(R.id.layout_stub_teacher);
         stubAdmin                   = (ViewStub) findViewById(R.id.layout_stub_admin);
+
+        mProfileImage               = (ImageButton) findViewById(R.id.profileEditButton);
+        mUserProfileRef             = FirebaseStorage.getInstance().getReference().child("Profile");
         //stubSuperAdmin = (ViewStub) findViewById(R.id.layout_stub_super_admin);
 
         mAuth                       = FirebaseAuth.getInstance();
         dbref                       = FirebaseDatabase.getInstance().getReference();
         memberStudent               = new MemberStudent();
         memberTeacher               = new MemberTeacher();
+
+        mProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallaryIntent = new Intent();
+                gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                gallaryIntent.setType("image/*");
+                startActivityForResult(gallaryIntent,GallaryPick);
+            }
+
+        });
 //        To be deleted later
 //        dbref= FirebaseDatabase.getInstance().getReference().child("Student");
 //        dbref.addValueEventListener(new ValueEventListener() {
@@ -73,10 +109,58 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
         spinnerUserType.setOnItemSelectedListener(this);
 
     }
-    public void studentRegister(View view)
-    {
+/* Todo: remove the image upload during signup*/
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GallaryPick && resultCode == RESULT_OK && data != null)
+        {
+            Uri imageUri = data.getData();
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1,1)
+                    .start(this);
 
+
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                loadingBar.setTitle("Upload Profile Image");
+                loadingBar.setMessage("Please Wait while your image is updating...");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
+                //
+                Uri resultUri = result.getUri();
+                //Creates a folder of userid
+                StorageReference filePath = mUserProfileRef.child(mAuth.getUid() + ".jpg");
+                //to store the file in the storage reference
+                filePath.putFile(resultUri)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            loadingBar.dismiss();
+                            Toast.makeText(SignUP.this, "Profile Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                            //to get the path for downloading the URL.
+                            downloadUrl = task.getResult().getUploadSessionUri().toString();
+
+                        }
+                        else {
+                            Toast.makeText(SignUP.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
+                        }
+                    }
+                });
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
+
+ */
+
     @Override
     public void onItemSelected(AdapterView<?> parent,View view, int position, long id) {
         String userType             = parent.getItemAtPosition(position).toString();
@@ -130,30 +214,74 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
         switch (position)
         {
             case 1:// Student
+                ArrayAdapter<String> adapterDepartment = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, departmentArr);
+                ArrayAdapter<String> adapterSemester = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, semesterArr);
+                ArrayAdapter<String> adapterSection = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, sectionArr);
+                //Find TextView control
+
                 txtnmStudent            = findViewById(R.id.signinnameStudent);
                 txtusnStudent           = findViewById(R.id.signinusnStudent);
                 txtpnoStudent           = findViewById(R.id.signinpnoStudent);
-                txtsemStudent           = findViewById(R.id.signinsemStudent);
-                txtdepStudent           = findViewById(R.id.signinbranchStudent);
+                acTxtsemStudent         = (AutoCompleteTextView)findViewById(R.id.signinsemStudent);
+                acTxtdepStudent         = (AutoCompleteTextView)findViewById(R.id.signinbranchStudent);
+                acTxtSectionStudent     = (AutoCompleteTextView)findViewById(R.id.signinSectionStudent);
                 txtemailStudent         = findViewById(R.id.signinemailStudent);
                 txtpwdStudent           = findViewById(R.id.signinpwdStudent);
                 txtcnfpwdStudent        = findViewById(R.id.signinpwdcnfrmStudent);
                 btnRegisterStudent      = findViewById(R.id.signinbtnStudent);
+                //Set the number of characters the user must type before the drop down list is shown
+                acTxtSectionStudent.setThreshold(1);
+                acTxtdepStudent.setThreshold(1);
+                acTxtsemStudent.setThreshold(1);
+                //Set the adapter
+                acTxtdepStudent.setAdapter(adapterDepartment);
+                acTxtsemStudent.setAdapter(adapterSemester);
+                acTxtSectionStudent.setAdapter(adapterSection);
                 btnRegisterStudent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String name       =txtnmStudent.getText().toString();
+                        final String name       = txtnmStudent.getText().toString();
                         final String usn        = txtusnStudent.getText().toString();
                         final String pno        = txtpnoStudent.getText().toString();
-                        final String sem        = txtsemStudent.getText().toString();
-                        final String branch     = txtdepStudent.getText().toString();
+                        final String sem        = acTxtsemStudent.getText().toString();
+                        final String branch     = acTxtdepStudent.getText().toString();
+                        final String section    = acTxtSectionStudent.getText().toString();
                         final String email      = txtemailStudent.getText().toString();
                         final String pwd        = txtpwdStudent.getText().toString();
                         final String cnfpwd     = txtcnfpwdStudent.getText().toString();
-                        if(!name.isEmpty() && !usn.isEmpty() && !pno.isEmpty() &&
+                        int Deptflag=0;
+                        int Semflag=0;
+                        int Sectionflag=0;
+                        for(String s:departmentArr)
+                        {
+                            if(s.equals(branch)){ Deptflag =1; break;}
+                        }
+                        if(Deptflag == 0){
+                            Toast.makeText(SignUP.this, "Choose Department from the Option!!!", Toast.LENGTH_SHORT).show();
+                        }
+                        for(String s:sectionArr)
+                        {
+                            if(s.equals(section)){Sectionflag =1; break;}
+                        }
+                        if(Sectionflag == 0){
+                            Toast.makeText(SignUP.this, "Choose Section from the Option!!!", Toast.LENGTH_SHORT).show();
+                        }
+                        for(String s:semesterArr)
+                        {
+                            if(s.equals(sem)){Semflag =1; break;}
+                        }
+                        if(Semflag == 0){
+                            Toast.makeText(SignUP.this, "Choose Semester from the Option!!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(!name.isEmpty() && !usn.isEmpty() && !pno.isEmpty() && Sectionflag ==1 && Semflag == 1 && Deptflag == 1 &&
                                 !sem.isEmpty() && !branch.isEmpty() &&
                                 !email.isEmpty() && !pwd.isEmpty() && !cnfpwd.isEmpty() && pwd.equals(cnfpwd)) {
                             if (cnfpwd.equals(pwd)) {
+                                loadingBar.setTitle("Creating new Account");
+                                loadingBar.setMessage("Please wait, while we are creating new account for you...");
+                                loadingBar.setCanceledOnTouchOutside(true);
+                                loadingBar.show();
                                 mAuth.createUserWithEmailAndPassword(email, pwd)
                                         .addOnCompleteListener(SignUP.this, new OnCompleteListener<AuthResult>() {
                                             @Override
@@ -163,17 +291,48 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
                                                     memberStudent.setStudent_USN(usn);
                                                     memberStudent.setStudent_phone_number(pno);
                                                     memberStudent.setStudent_semester(sem);
+                                                    memberStudent.setStudent_section(section);
                                                     memberStudent.setStudent_branch(branch);
                                                     memberStudent.setStudent_email(email);
                                                     memberStudent.setUser_type("LoginStudent");// login type is student
                                                     //we encrypt and store password
-                                                    memberStudent.setStudent_password("1"+pwd+"1");
+                                                    memberStudent.setStudent_password(""+pwd);
                                                     memberStudent.setStudent_user_Id(mAuth.getUid());
-                                                    dbref.child("LoginStudent").child(mAuth.getUid()).setValue(memberStudent);
-                                                    Toast.makeText(SignUP.this, "Data Inserted Successfully!!!", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), MainActivityLokesh.class));
-                                                } else {
+                                                    //memberStudent.setProfile_image(downloadUrl);
+                                                    long time = System.currentTimeMillis();
+                                                    long dept = time +1;
+                                                    long deptSem = time +2;
+                                                    long deptSemSec = time +3;
+                                                    // fills all the colleges groups into the users' node while signup.
+                                                    // todo : apply check condition on getting group key.
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("profile_info").setValue(memberStudent);
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+dept).child("key").setValue(String.valueOf(dept));
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+dept).child("name").setValue(memberStudent.getStudent_branch());
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+deptSem).child("key").setValue(""+deptSem);
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+deptSem).child("name").setValue(memberStudent.getStudent_branch()+memberStudent.getStudent_semester());
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+deptSemSec).child("key").setValue(""+deptSemSec);
+                                                    dbref.child("LoginStudent").child(mAuth.getUid()).child("CollegeGroups").child(""+deptSemSec).child("name").setValue(memberStudent.getStudent_branch()+memberStudent.getStudent_semester()+memberStudent.getStudent_section());
 
+                                                    //Inserting the data into Department, Year, Section
+                                                    //Department Node will help in sending event department wise
+                                                    dbref.child(branch).child("Info").child("GroupKey").setValue(""+dept);
+                                                    dbref.child(branch).child("Users").child(mAuth.getUid()).child("name").setValue(memberStudent.getStudent_name());
+                                                    dbref.child(branch).child("Users").child(mAuth.getUid()).child("usn").setValue(memberStudent.getStudent_USN());
+                                                    //Semester Node will help in sending event semester wise
+                                                    dbref.child(branch+memberStudent.getStudent_semester()).child("Info").child("GroupKey").setValue(""+deptSem);
+                                                    dbref.child(branch+memberStudent.getStudent_semester()).child("Users").child(mAuth.getUid()).child("name").setValue(memberStudent.getStudent_name());
+                                                    dbref.child(branch+memberStudent.getStudent_semester()).child("Users").child(mAuth.getUid()).child("usn").setValue(memberStudent.getStudent_USN());
+                                                    // Section Node will help in sending event section wise
+                                                    dbref.child(branch+memberStudent.getStudent_semester()+memberStudent.getStudent_section()).child("Info").child("GroupKey").setValue(""+deptSemSec);
+                                                    dbref.child(branch+memberStudent.getStudent_semester()+memberStudent.getStudent_section()).child("Users").child(mAuth.getUid()).child("name").setValue(memberStudent.getStudent_name());
+                                                    dbref.child(branch+memberStudent.getStudent_semester()+memberStudent.getStudent_section()).child("Users").child(mAuth.getUid()).child("usn").setValue(memberStudent.getStudent_USN());
+
+
+                                                    loadingBar.dismiss();
+                                                    Toast.makeText(SignUP.this, "Data Inserted Successfully!!!", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                } else {
+                                                    loadingBar.dismiss();
                                                     Toast.makeText(SignUP.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                                                 }
@@ -219,6 +378,10 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
                                 !specialisationTeacher.isEmpty() && !branchTeacher.isEmpty() &&
                                 !emailTeacher.isEmpty() && !pwdTeacher.isEmpty() && !cnfpwdTeacher.isEmpty() && !designationTeacher.isEmpty()) {
                             if (cnfpwdTeacher.equals(pwdTeacher)) {
+                                loadingBar.setTitle("Creating new Account");
+                                loadingBar.setMessage("Please wait, while we are creating new account for you...");
+                                loadingBar.setCanceledOnTouchOutside(true);
+                                loadingBar.show();
                                 mAuth.createUserWithEmailAndPassword(emailTeacher, pwdTeacher)
                                         .addOnCompleteListener(SignUP.this, new OnCompleteListener<AuthResult>() {
                                             @Override
@@ -237,15 +400,16 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
                                                     memberTeacher.setTeacher_user_Id(mAuth.getUid());
                                                     memberTeacher.setTeacher_verified("0");
                                                     //Apply_Permission apply_permission = new Apply_Permission(memberTeacher);apply_permission.memberTeacher=memberTeacher;
-                                                    dbref.child("LoginTeacher").child(mAuth.getUid()).setValue(memberTeacher);
+                                                    dbref.child("LoginTeacher").child(mAuth.getUid()).child("profile_info").setValue(memberTeacher);
                                                     Toast.makeText(SignUP.this, "Registered Successfully!!!\nComplete the Permission Letter", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(getApplicationContext(), Apply_Permission.class);
                                                     intent.putExtra("USER_TYPE","LoginTeacher");
                                                     intent.putExtra("TEACHER_NAME",nameTeacher);
                                                     intent.putExtra("USER_ID",mAuth.getUid());
+                                                    loadingBar.dismiss();
                                                     startActivity(intent);
                                                 } else {
-
+                                                    loadingBar.dismiss();
                                                     Toast.makeText(SignUP.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                                                 }
@@ -253,6 +417,7 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
                                             }
                                         });
                             } else {
+                                loadingBar.dismiss();
                                 Toast.makeText(SignUP.this, "Password Not Confirmed", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -308,7 +473,7 @@ public class SignUP extends AppCompatActivity implements AdapterView.OnItemSelec
 //                                                    memberTeacher.setTeacher_password("1"+pwdTeacher+"1");
 //                                                    memberTeacher.setTeacher_user_Id(mAuth.getUid());
 //                                                    memberTeacher.setTeacher_verified("0");
-//                                                    dbref.child("LoginTeacher").child(mAuth.getUid()).setValue(memberTeacher);
+//                                                    dbref.child("LoginAdmin").child(mAuth.getUid()).setValue(memberTeacher);
 //                                                    Toast.makeText(SignUP.this, "Registered Successfully!!!\nComplete the Permission Letter", Toast.LENGTH_LONG).show();
 //                                                    Intent intent = new Intent(getApplicationContext(), Apply_Permission.class);
 //                                                    intent.putExtra("USER_TYPE","LoginAdmin");

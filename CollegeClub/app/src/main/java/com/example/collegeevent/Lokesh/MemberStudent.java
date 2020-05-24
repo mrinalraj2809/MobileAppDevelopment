@@ -9,11 +9,15 @@ public class MemberStudent {
     private String student_password;
     private String student_user_Id;
     private String user_type;
+    private String student_section;
+    private String profile_image;
 
     public MemberStudent() {
+        student_branch = student_email=student_name=student_user_Id=student_password=student_section=student_semester=student_USN= student_phone_number = "N/A";
+        profile_image = "https://bit.ly/2ZnsXwc";
     }
 
-    public MemberStudent(String student_name, String student_USN, String student_phone_number, String student_semester, String student_branch, String student_email, String student_password, String student_user_Id, String user_type) {
+    public MemberStudent(String student_name, String student_USN, String student_phone_number, String student_semester, String student_branch, String student_email, String student_password, String student_user_Id, String user_type, String student_section, String profile_image) {
         this.student_name = student_name;
         this.student_USN = student_USN;
         this.student_phone_number = student_phone_number;
@@ -23,6 +27,8 @@ public class MemberStudent {
         this.student_password = student_password;
         this.student_user_Id = student_user_Id;
         this.user_type = user_type;
+        this.student_section = student_section;
+        this.profile_image = profile_image;
     }
 
     public String getStudent_name() {
@@ -95,5 +101,21 @@ public class MemberStudent {
 
     public void setUser_type(String user_type) {
         this.user_type = user_type;
+    }
+
+    public String getStudent_section() {
+        return student_section;
+    }
+
+    public void setStudent_section(String student_section) {
+        this.student_section = student_section;
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 }

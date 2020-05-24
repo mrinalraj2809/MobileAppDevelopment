@@ -3,7 +3,9 @@
     package="com.example.collegeevent">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,22 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Lokesh.MainActivityLokesh">
+        <activity android:name=".feedsection.NewsDetails"></activity>
+        <activity android:name=".feedsection.MainActivityFeed">
 
         </activity>
-        <activity android:name=".Lokesh.BottomNavigation" />
-        <activity android:name=".Lokesh.BackFragment" />
-        <activity android:name=".Lokesh.Groups"/>
-        <activity android:name=".Lokesh.Apply_Permission" />
-        <activity android:name=".Lokesh.SignUP"/>
-        <activity android:name=".ChannelGroup">
+        <activity android:name=".Lokesh.Profile"></activity>
+        <activity android:name=".Lokesh.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Create_Event" />
+        <activity android:name=".Lokesh.BottomNavigation" />
+        <activity android:name=".Lokesh.BackFragment" />
+        <activity android:name=".Lokesh.HomeActivity">
+        </activity>
+        <activity android:name=".Lokesh.Apply_Permission" />
+        <activity android:name=".Lokesh.SignUP" />
+        <activity android:name=".ChannelGroup"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>

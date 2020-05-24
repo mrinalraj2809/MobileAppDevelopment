@@ -11,6 +11,12 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="whiteColour">#fff</color>
+    <color name="gradient_start_color">#4C84FF</color>
+    <color name="gradient_end_color">#18A3FE</color>
+
+    <color name="colorBackground">#f9f9fa</color>
+    <color name="colorTextSubtitle">#4e4e4e</color>
+    <color name="colorTextTitle">#262626</color>
 
 
 </resources>
