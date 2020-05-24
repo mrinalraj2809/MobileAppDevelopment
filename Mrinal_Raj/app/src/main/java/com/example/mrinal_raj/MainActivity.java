@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<MessageModel> message_list;
     private Toolbar mToolbar;
     private ScrollView mScrollView;
+//    ScrollView mMainScrollView;
     private ArrayList<MessageModel> main_message_list;
-    private int counter =2;
+    private int counter =5;
     Button resetButton;
     Fragment fragment;
     MessageAdapter messageAdapter;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         view = findViewById(R.id.view_to_listen_for_touch);
         main_message_list = new ArrayList<MessageModel>();
         mToolbar = (Toolbar) findViewById(R.id.group_page_toolbar);
+//        mMainScrollView = findViewById(R.id.main_scroll_view);
+//        mMainScrollView.setSmoothScrollingEnabled(true);
         mScrollView = (ScrollView)findViewById(R.id.chat_scroll);
         profileText = findViewById(R.id.profile_name);
         resetButton = findViewById(R.id.resetButton);
@@ -87,7 +90,11 @@ public class MainActivity extends AppCompatActivity {
         mScrollView.setSmoothScrollingEnabled(true);
         main_message_list.add(message_list.get(0));
         main_message_list.add(message_list.get(1));
+        main_message_list.add(message_list.get(2));
+        main_message_list.add(message_list.get(3));
+        main_message_list.add(message_list.get(4));
         displayMessage();
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,10 +122,12 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                counter =2;
-                                main_message_list.clear();
-                                main_message_list.add(message_list.get(0));
+                                counter =5;
+                                main_message_list.clear();main_message_list.add(message_list.get(0));
                                 main_message_list.add(message_list.get(1));
+                                main_message_list.add(message_list.get(2));
+                                main_message_list.add(message_list.get(3));
+                                main_message_list.add(message_list.get(4));
                                 displayMessage();
                                 resetButton.setVisibility(View.INVISIBLE);
                             }
