@@ -55,15 +55,10 @@ public class NetworkError extends Fragment {
         errorLayout = view.findViewById(R.id.error_layout);
 
         showErrorMessage(R.drawable.ic_error_black_24dp,"No Result","Please Check Your Internet Connection!!!");
-//        loadingBar = new ProgressDialog(getContext());
-//        loadingBar.dismiss();
         return view;
     }
 
     private void showErrorMessage(int imageView, String title, String message) {
-//        if (errorLayout.getVisibility() == View.VISIBLE) {
-//            errorLayout.setVisibility(View.VISIBLE);
-//        }
 
         errorImage.setImageResource(imageView);
         errorTitle.setText(title);
@@ -71,11 +66,12 @@ public class NetworkError extends Fragment {
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loadingBar = new ProgressDialog(getContext());
-//                loadingBar.onStart();
+                loadingBar = new ProgressDialog(getContext());
+                loadingBar.onStart();
                 if (isInternetAvailable())
                 {
                     loadingBar.dismiss();
+                    getActivity().onBackPressed();
                     errorLayout.setVisibility(View.INVISIBLE);
                 }
                 loadingBar.dismiss();

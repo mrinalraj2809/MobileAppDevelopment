@@ -87,15 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this, "Network Unavailable1", Toast.LENGTH_LONG).show();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentNetworkError, new NetworkError(), "createPost").addToBackStack("NetworkError").commit();
-                    Toast.makeText(MainActivity.this, "Network Unavailable1.1", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(MainActivity.this,NetworkError.class));
+                            .replace(R.id.fragment_frame, new NetworkError(), "createPost").addToBackStack("NetworkError").commit();
                 }
-//                Toast.makeText(MainActivity.this, ""+counter, Toast.LENGTH_SHORT).show();
                 else {
                     if(counter<30) {
-                        Toast.makeText(MainActivity.this, "Network Available1", Toast.LENGTH_SHORT).show();
-//                        getSupportFragmentManager().findFragmentById(R.id.fragmentNetworkError).getActivity().finish();
                         main_message_list.add(message_list.get(counter));
                         counter++;
                         displayMessage();
