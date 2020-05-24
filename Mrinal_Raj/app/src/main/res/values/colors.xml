@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="Wheat">#5dff40</color>
-
+    <color name="white">#fff</color>
+    <color name="green">#0f9b0f</color>
     <color name="Black">#000</color>
     <color name="input_register_bg">#3b4148</color>
     <color name="splashtxt">#fff</color>

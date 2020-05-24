@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ScrollView mScrollView;
     private ArrayList<MessageModel> main_message_list;
-    private int counter =0;
+    private int counter =2;
+    Button resetButton;
     Fragment fragment;
     MessageAdapter messageAdapter;
     View view;
@@ -61,10 +64,14 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.group_page_toolbar);
         mScrollView = (ScrollView)findViewById(R.id.chat_scroll);
         profileText = findViewById(R.id.profile_name);
+        resetButton = findViewById(R.id.resetButton);
+        resetButton.setVisibility(View.INVISIBLE);
         //setSupportActionBar(mToolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("");
         profileText.setText("Anushka");
+
+        final MediaPlayer newMessageSound = MediaPlayer.create(this,R.raw.whatsapp_new_message);
 
         recyclerView = findViewById(R.id.chat_recycler_view);
         message_list = new ArrayList<MessageModel>();
@@ -78,23 +85,45 @@ public class MainActivity extends AppCompatActivity {
         loadMessage();
         mScrollView.fullScroll(View.FOCUS_DOWN);
         mScrollView.setSmoothScrollingEnabled(true);
-
+        main_message_list.add(message_list.get(0));
+        main_message_list.add(message_list.get(1));
+        displayMessage();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!isInternetAvailable())
                 {
-                    Toast.makeText(MainActivity.this, "Network Unavailable1", Toast.LENGTH_LONG).show();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_frame, new NetworkError(), "createPost").addToBackStack("NetworkError").commit();
                 }
                 else {
                     if(counter<30) {
                         main_message_list.add(message_list.get(counter));
+                        if (message_list.get(counter).getType().equals("receiveText") || message_list.get(counter).getType().equals("receiveImage"))
+                        {
+                            newMessageSound.start();
+                        }
                         counter++;
                         displayMessage();
                         recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+                    }
+                    else if (counter>=30)
+                    {
+                        resetButton.setVisibility(View.VISIBLE);
+                        resetButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                counter =2;
+                                main_message_list.clear();
+                                main_message_list.add(message_list.get(0));
+                                main_message_list.add(message_list.get(1));
+                                displayMessage();
+                                resetButton.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                        Toast.makeText(MainActivity.this, "Story has ended.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -113,13 +142,7 @@ public class MainActivity extends AppCompatActivity {
         mScrollView.fullScroll(View.FOCUS_DOWN);
         messageAdapter.notifyDataSetChanged();
     }
-    private void displayOnNewMessage()
-    {
-        messageAdapter = new MessageAdapter(message_list.get(counter));
-        recyclerView.setAdapter(messageAdapter);
-        mScrollView.fullScroll(View.FOCUS_DOWN);
-        messageAdapter.notifyDataSetChanged();
-    }
+
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
