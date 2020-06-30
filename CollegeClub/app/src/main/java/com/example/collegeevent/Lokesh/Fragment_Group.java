@@ -80,6 +80,7 @@ import java.util.Set;
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_fragment__group, container, false); // since fragments is a view
         setHasOptionsMenu(true); // for 3 dots
+
         dbref = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();

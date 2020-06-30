@@ -211,6 +211,7 @@ public class ChannelGroup extends AppCompatActivity {
                     message_model.setSenders_name(senderAdminName);
                     message_model.setSenders_unique_id(mAuth.getUid());
                     message_model.setSent_date_time(""+System.currentTimeMillis());
+                    recyclerView.scrollToPosition(message_list.size()-1);
                     mRefChats.child(""+System.currentTimeMillis()).setValue(message_model)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

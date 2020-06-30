@@ -16,10 +16,6 @@
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_bar_layout"/>
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/tool"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
         <!--     tabMode =  fixed is required so as to completely fill the tab layout   -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -27,6 +23,9 @@
             android:layout_height="wrap_content"
             app:tabGravity="fill"
             app:tabMode="fixed"
+            app:tabTextColor="@color/Black"
+            app:tabIndicatorColor="@color/Black"
+            android:background="@color/light_grey"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     </com.google.android.material.appbar.AppBarLayout>

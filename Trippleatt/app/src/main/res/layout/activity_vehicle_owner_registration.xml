@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".VehicleOwnerRegistration">
+    <com.anton46.stepsview.StepsView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/stepsViewVehicleOwnerRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:id="@+id/vehicle_owner_aadhar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
+        android:drawableEnd="@drawable/qr_scan"
+        android:hint="Enter Your Aadhar ID*" />
+
+    <EditText
+        android:id="@+id/vehicle_owner_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:hint="Enter Your Name*"
+        android:layout_marginEnd="14dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/vehicle_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:hint="Enter Your Address"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="4dp"
+            android:drawableEnd="@drawable/ic_my_location_black_24dp"
+            android:layout_weight="0"/>
+        <EditText
+            android:id="@+id/vehicle_pincode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:hint="Enter Pincode"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/vehicle_owner_contact_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:inputType="phone"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:hint="Enter Mobile number"
+        />
+    <EditText
+        android:id="@+id/vehicle_owner_contact_email_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="12dp"
+        android:inputType="phone"
+        android:hint="Enter Email ID" />
+    <EditText
+        android:id="@+id/vehicle_owner_owner_password"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:inputType="textPassword"
+        android:hint="Enter Password" />
+    <EditText
+        android:id="@+id/vehicle_owner_re_password"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:inputType="textPassword"
+        android:hint="Re-Enter Password" />
+
+
+    <Button
+        android:id="@+id/btnVehicleOwnerResistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Next" />
+</LinearLayout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:orientation="vertical"
+
+    tools:context=".CustomerRegistration">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_delivery_partner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:text="Start your career as Delivery Partner"
+            android:textSize="8sp"
+            android:background="@drawable/rectangle_button"/>
+
+        <Button
+            android:id="@+id/button_shop_partner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:text=" Get your Shop Online"
+            android:textSize="8sp"
+            android:background="@drawable/rectangle_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:orientation="horizontal">
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:outlineAmbientShadowColor="@color/sky_blue_light">
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="I have Aadhar" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="I Don't have Aadhar" />
+</RadioGroup>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/shop_owner_aadhar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
+        android:clickable="false"
+        android:drawableEnd="@drawable/qr_scan"
+        android:enabled="true"
+        android:hint="Enter Your Aadhar ID*" />
+
+    <EditText
+        android:id="@+id/shop_owner_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="14dp"
+        android:clickable="false"
+        android:enabled="true"
+        android:hint="Enter Your Name*" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/shop_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="0"
+            android:clickable="false"
+            android:drawableEnd="@drawable/ic_my_location_black_24dp"
+            android:enabled="true"
+            android:hint="Enter Your Address" />
+
+        <EditText
+            android:id="@+id/shop_pincode"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:enabled="true"
+            android:hint="Enter Pincode" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/shop_contact_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:enabled="true"
+        android:hint="Enter Mobile number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/shop_contact_email_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:enabled="true"
+        android:hint="Enter Email ID"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/shop_owner_password"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:enabled="true"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/shop_owner_re_password"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:enabled="true"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
+        android:clickable="false"
+        android:enabled="true"
+        android:text="Next" />
+</LinearLayout>

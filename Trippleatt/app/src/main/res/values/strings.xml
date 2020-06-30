@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Trippleatt</string>
+    <string-array name="shopCategory">User Type>
+        <item>Select Shop Category*</item>
+        <item>General Store</item>
+        <item>Mall</item>
+        <item>Pan Dukan</item>
+        <item>Super Market</item>
+    </string-array>
+</resources>

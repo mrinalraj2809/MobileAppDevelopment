@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         toolbar= findViewById(R.id.main_page_toolbar);

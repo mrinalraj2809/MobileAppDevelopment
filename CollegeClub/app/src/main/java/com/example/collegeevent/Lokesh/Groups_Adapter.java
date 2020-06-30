@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class Groups_Adapter extends RecyclerView.Adapter<Groups_Adapter.MyViewHolder> {
     ArrayList<Group_List>       group_lists;
-    public ImageView            imageGroupIcon;
-    public TextView             groupName;
 
     Context context;
     public Groups_Adapter(Context c,ArrayList<Group_List> g)

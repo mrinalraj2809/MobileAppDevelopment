@@ -7,7 +7,7 @@
     <color name="white">#fff</color>
     <color name="dark">#000</color>
 
-    <color name="light_grey">#999999</color>
+    <color name="light_grey">#ede4ec</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="whiteColour">#fff</color>
@@ -17,6 +17,9 @@
     <color name="colorBackground">#f9f9fa</color>
     <color name="colorTextSubtitle">#4e4e4e</color>
     <color name="colorTextTitle">#262626</color>
+    <color name="Wheat">#34eb8c</color>
+    <color name="green">#0f9b0f</color>
+    <color name="Black">#000</color>
 
 
 </resources>
